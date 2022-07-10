@@ -40,7 +40,7 @@ int main(int, char**){
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
-    io.Fonts->AddFontFromFileTTF("./fonts/Roboto-Medium.ttf", 22.0f);
+    io.Fonts->AddFontFromFileTTF("./fonts/DroidSans.ttf", 21.0f);
 
     // status
     bool show_demo_window = true;
