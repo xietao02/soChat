@@ -1,7 +1,7 @@
 #include "./GUI/GUI_setup.h"
+#include <iostream>
 
-int main(int, char**)
-{
+int main(int, char**){
     // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
@@ -17,6 +17,7 @@ int main(int, char**)
     // Set the Context of the created window as the main Context of the current thread
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
+
     // Set the window icon
     GLFWimage icon;
     int channels = 3;
@@ -39,17 +40,16 @@ int main(int, char**)
     ImGui_ImplOpenGL3_Init(glsl_version);
 
     // Load Fonts
-    io.Fonts->AddFontFromFileTTF("./fonts/Roboto-Medium.ttf", 18.0f);
+    io.Fonts->AddFontFromFileTTF("./fonts/Roboto-Medium.ttf", 22.0f);
 
-    // Our state
+    // status
     bool show_demo_window = true;
     bool show_another_window = false;
     ImVec4 clear_color = ImVec4(0.409f, 0.924f, 0.605f, 1.00f);
+    int display_w, display_h = 640;
 
     // Main loop
-    bool flagg = true;
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)){
         // Poll and handle events (inpu+ts, window resize, etc.)
         // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
         // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application, or clear/overwrite your copy of the mouse data.
@@ -101,19 +101,22 @@ int main(int, char**)
             ImGui::End();
         }
 
-        //test
-
-
-        ImGui::SetNextWindowPos(ImVec2(400, 400), ImGuiCond_Always);
-        if (flagg) {
-            ImGui::Begin("map", &flagg);
-            ImGui::Text("google map");
-            ImGui::End();
-        }
+        // Friend List
+        ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
+        ImGuiWindowFlags window_flags = 0;
+        window_flags |= ImGuiWindowFlags_MenuBar;
+        window_flags |= ImGuiWindowFlags_NoMove;
+        window_flags |= ImGuiWindowFlags_NoResize;
+        window_flags |= ImGuiWindowFlags_NoCollapse;
+        ImGui::Begin(" Friends List", nullptr, window_flags);
+        ImGui::SetWindowSize(ImVec2(300, static_cast<float>(display_h)), ImGuiCond_Always);
+        ImGui::Text("Friend are following..");
+        const char* text = "wow";
+        ImGui::CollapsingHeader(text);
+        ImGui::End();
 
         // Rendering
         ImGui::Render();
-        int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
         glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
@@ -127,7 +130,6 @@ int main(int, char**)
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
-
     glfwDestroyWindow(window);
     glfwTerminate();
 
