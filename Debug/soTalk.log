@@ -7,7 +7,7 @@
   imgui_impl_win32.cpp
   imgui_tables.cpp
   imgui_widgets.cpp
-  main.cpp
   stb_image.cpp
+  main.cpp
   正在生成代码...
   soTalk.vcxproj -> D:\Projects\Visual Studio\soTalk\Debug\soTalk.exe

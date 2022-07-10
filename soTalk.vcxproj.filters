@@ -17,86 +17,90 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="LICENSE" />
+    <None Include="Source\GUI\imgui.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUI_setup.cpp">
+    <ClCompile Include="Source\GUI\GUI_setup.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui.cpp">
+    <ClCompile Include="Source\GUI\imgui.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
+    <ClCompile Include="Source\GUI\imgui_demo.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
+    <ClCompile Include="Source\GUI\imgui_draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_glfw.cpp">
+    <ClCompile Include="Source\GUI\imgui_impl_glfw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_opengl3.cpp">
+    <ClCompile Include="Source\GUI\imgui_impl_opengl3.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_win32.cpp">
+    <ClCompile Include="Source\GUI\imgui_impl_win32.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
+    <ClCompile Include="Source\GUI\imgui_tables.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
+    <ClCompile Include="Source\GUI\imgui_widgets.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Source\GUI\stb_image.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="stb_image.cpp">
+    <ClCompile Include="Source\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GUI_setup.h">
+    <ClInclude Include="Source\GUI\GUI_setup.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imconfig.h">
+    <ClInclude Include="Source\GUI\imconfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
+    <ClInclude Include="Source\GUI\imgui.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_glfw.h">
+    <ClInclude Include="Source\GUI\imgui_impl_glfw.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3.h">
+    <ClInclude Include="Source\GUI\imgui_impl_opengl3.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3_loader.h">
+    <ClInclude Include="Source\GUI\imgui_impl_opengl3_loader.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_win32.h">
+    <ClInclude Include="Source\GUI\imgui_impl_win32.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_internal.h">
+    <ClInclude Include="Source\GUI\imgui_internal.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
+    <ClInclude Include="Source\GUI\imstb_rectpack.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
+    <ClInclude Include="Source\GUI\imstb_textedit.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
+    <ClInclude Include="Source\GUI\imstb_truetype.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="Source\GUI\resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
+    <ClInclude Include="Source\GUI\stb_image.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon.png">
+    <Image Include="images\icon.png">
       <Filter>资源文件</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Roboto-Medium.ttf" />
   </ItemGroup>
 </Project>

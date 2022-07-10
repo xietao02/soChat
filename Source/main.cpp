@@ -1,4 +1,4 @@
-#include "GUI_setup.h"
+#include "./GUI/GUI_setup.h"
 
 int main(int, char**)
 {
@@ -20,7 +20,7 @@ int main(int, char**)
     // Set the window icon
     GLFWimage icon;
     int channels = 3;
-    icon.pixels = stbi_load("./icon.png", &icon.width, &icon.height, &channels, 4);
+    icon.pixels = stbi_load("./images/icon.png", &icon.width, &icon.height, &channels, 4);
     glfwSetWindowIcon(window, 1, &icon);
 
     // Setup Dear ImGui context

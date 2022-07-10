@@ -145,37 +145,41 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="LICENSE" />
+    <None Include="Source\GUI\imgui.ini" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GUI_setup.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="stb_image.cpp" />
+    <ClCompile Include="Source\GUI\GUI_setup.cpp" />
+    <ClCompile Include="Source\GUI\imgui.cpp" />
+    <ClCompile Include="Source\GUI\imgui_demo.cpp" />
+    <ClCompile Include="Source\GUI\imgui_draw.cpp" />
+    <ClCompile Include="Source\GUI\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Source\GUI\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Source\GUI\imgui_impl_win32.cpp" />
+    <ClCompile Include="Source\GUI\imgui_tables.cpp" />
+    <ClCompile Include="Source\GUI\imgui_widgets.cpp" />
+    <ClCompile Include="Source\GUI\stb_image.cpp" />
+    <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GUI_setup.h" />
-    <ClInclude Include="imconfig.h" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="imgui_impl_glfw.h" />
-    <ClInclude Include="imgui_impl_opengl3.h" />
-    <ClInclude Include="imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="imgui_impl_win32.h" />
-    <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imstb_rectpack.h" />
-    <ClInclude Include="imstb_textedit.h" />
-    <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Source\GUI\GUI_setup.h" />
+    <ClInclude Include="Source\GUI\imconfig.h" />
+    <ClInclude Include="Source\GUI\imgui.h" />
+    <ClInclude Include="Source\GUI\imgui_impl_glfw.h" />
+    <ClInclude Include="Source\GUI\imgui_impl_opengl3.h" />
+    <ClInclude Include="Source\GUI\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Source\GUI\imgui_impl_win32.h" />
+    <ClInclude Include="Source\GUI\imgui_internal.h" />
+    <ClInclude Include="Source\GUI\imstb_rectpack.h" />
+    <ClInclude Include="Source\GUI\imstb_textedit.h" />
+    <ClInclude Include="Source\GUI\imstb_truetype.h" />
+    <ClInclude Include="Source\GUI\resource.h" />
+    <ClInclude Include="Source\GUI\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon.png" />
+    <Image Include="images\icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="fonts\Roboto-Medium.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
