@@ -1,5 +1,6 @@
 #include "./GUI/GUI_setup.h"
 #include <iostream>
+using namespace std;
 
 int main(int, char**){
     // Setup window
@@ -10,7 +11,7 @@ int main(int, char**){
     const char* glsl_version = GL_init();
 
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(940, 640, "soTalk", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(940, 640, "soChat", NULL, NULL);
     if (window == NULL)
         return 1;
 
@@ -45,8 +46,15 @@ int main(int, char**){
     // status
     bool show_demo_window = true;
     bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.409f, 0.924f, 0.605f, 1.00f);
-    int display_w, display_h = 640;
+    ImVec4 clear_color = ImVec4(0.664f, 0.797f, 0.953f, 1.00f);
+
+    int display_w = 940, display_h = 640;
+
+    // initialize soTalk
+    // initialize Messages and Groups List
+    bool Messages_selected = true, Groups_selected = false, Messages_pressed = false, Groups_pressed = false;
+	// initialize Chat area
+    bool chat_p_open = true;
 
     // Main loop
     while (!glfwWindowShouldClose(window)){
@@ -100,20 +108,74 @@ int main(int, char**){
                 show_another_window = false;
             ImGui::End();
         }
+		
+        
 
-        // Friend List
+        // Menu
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
-        ImGuiWindowFlags window_flags = 0;
-        window_flags |= ImGuiWindowFlags_MenuBar;
-        window_flags |= ImGuiWindowFlags_NoMove;
-        window_flags |= ImGuiWindowFlags_NoResize;
-        window_flags |= ImGuiWindowFlags_NoCollapse;
-        ImGui::Begin(" Friends List", nullptr, window_flags);
-        ImGui::SetWindowSize(ImVec2(300, static_cast<float>(display_h)), ImGuiCond_Always);
+        ImGuiWindowFlags MGL_window_flags = 0;
+        MGL_window_flags |= ImGuiWindowFlags_NoTitleBar;
+        MGL_window_flags |= ImGuiWindowFlags_NoMove;
+        MGL_window_flags |= ImGuiWindowFlags_NoResize;
+        MGL_window_flags |= ImGuiWindowFlags_NoCollapse;
+        ImGui::Begin("Messages and Groups List", nullptr, MGL_window_flags);
+        ImGui::SetWindowSize(ImVec2(280, static_cast<float>(display_h)), ImGuiCond_Always);
+        ImGui::BeginGroup();
+
+		if (Messages_pressed) {
+            Messages_selected = true;
+			Groups_selected = false;
+        }
+        else if (Groups_pressed) {
+            Messages_selected = false;
+            Groups_selected = true;
+		}
+        if (Messages_selected) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.59f, 0.98f, 1.0f));
+            Messages_pressed = ImGui::Button("Messages", ImVec2(106.5, 35));
+            ImGui::PopStyleColor();
+            ImGui::SameLine();
+            Groups_pressed = ImGui::Button("Groups", ImVec2(106.5, 35));
+        }
+        else {
+            Messages_pressed = ImGui::Button("Messages", ImVec2(106.5, 35));
+            ImGui::SameLine();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.59f, 0.98f, 1.0f));
+            Groups_pressed = ImGui::Button("Groups", ImVec2(106.5, 35));
+            ImGui::PopStyleColor();
+        }
+        ImGui::SameLine();
+        ImGui::Button("+", ImVec2(35, 35));
+        
+        ImGui::EndGroup();
+        ImGui::Separator();
         ImGui::Text("Friend are following..");
         const char* text = "wow";
         ImGui::CollapsingHeader(text);
         ImGui::End();
+
+        // Chat area
+        if (chat_p_open) {
+            ImGui::SetNextWindowPos(ImVec2(280, 0), ImGuiCond_Always);
+            ImGuiWindowFlags Chat_window_flags = 0;
+            //Chat_window_flags |= ImGuiWindowFlags_NoMove;
+            //Chat_window_flags |= ImGuiWindowFlags_NoResize;
+            Chat_window_flags |= ImGuiWindowFlags_NoCollapse;
+            ImGui::Begin("chat area", &chat_p_open, Chat_window_flags);
+            ImGui::SetWindowSize(ImVec2(static_cast<float>(display_w) - 280, static_cast<float>(display_h) - 200), ImGuiCond_Always);
+            ImGui::End();
+
+            ImGui::SetNextWindowPos(ImVec2(280, static_cast<float>(display_h) - 200), ImGuiCond_Always);
+            ImGuiWindowFlags Input_window_flags = 0;
+            Input_window_flags |= ImGuiWindowFlags_NoTitleBar;
+            //Input_window_flags |= ImGuiWindowFlags_NoMove;
+            //Input_window_flags |= ImGuiWindowFlags_NoResize;
+            Input_window_flags |= ImGuiWindowFlags_NoCollapse;
+            ImGui::Begin("input area", &chat_p_open, Input_window_flags);
+            ImGui::SetWindowSize(ImVec2(static_cast<float>(display_w) - 280, 200), ImGuiCond_Always);
+            ImGui::End();
+        }
+
 
         // Rendering
         ImGui::Render();
