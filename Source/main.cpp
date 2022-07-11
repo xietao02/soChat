@@ -51,10 +51,11 @@ int main(int, char**){
     int display_w = 940, display_h = 640;
 
     // initialize soTalk
-    // initialize Messages and Groups List
+    // initialize Menu
     bool Messages_selected = true, Groups_selected = false, Messages_pressed = false, Groups_pressed = false;
 	// initialize Chat area
     bool chat_p_open = true;
+
 
     // Main loop
     while (!glfwWindowShouldClose(window)){
@@ -69,6 +70,19 @@ int main(int, char**){
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
+
+        ImGuiWindowFlags tips_window_flags = 0;
+        tips_window_flags |= ImGuiWindowFlags_NoTitleBar;
+        tips_window_flags |= ImGuiWindowFlags_NoScrollbar;
+        tips_window_flags |= ImGuiWindowFlags_NoMove;
+        tips_window_flags |= ImGuiWindowFlags_NoResize;
+        tips_window_flags |= ImGuiWindowFlags_NoCollapse;
+        tips_window_flags |= ImGuiWindowFlags_NoBackground;
+        tips_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
+        ImGui::SetNextWindowPos(ImVec2(static_cast<int>(display_w) / 2 + 20, static_cast<int>(display_h) / 2 - 60), ImGuiCond_Always);
+        ImGui::Begin("tips", nullptr, tips_window_flags);
+        ImGui::Text("so...Chat with your friends!~");//180
+        ImGui::End();
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (show_demo_window)
@@ -111,7 +125,7 @@ int main(int, char**){
 		
         
 
-        // Menu
+        // Menu and Setting
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
         ImGuiWindowFlags MGL_window_flags = 0;
         MGL_window_flags |= ImGuiWindowFlags_NoTitleBar;
@@ -119,8 +133,13 @@ int main(int, char**){
         MGL_window_flags |= ImGuiWindowFlags_NoResize;
         MGL_window_flags |= ImGuiWindowFlags_NoCollapse;
         ImGui::Begin("Messages and Groups List", nullptr, MGL_window_flags);
-        ImGui::SetWindowSize(ImVec2(280, static_cast<float>(display_h)), ImGuiCond_Always);
+        ImGui::SetWindowSize(ImVec2(280, static_cast<float>(display_h) - 47), ImGuiCond_Always);
         ImGui::BeginGroup();
+        static char search_buf[32] = "";
+        ImGui::InputText("##", search_buf, 32);
+        ImGui::SameLine();
+        ImGui::Button("Search", ImVec2(74, 27));
+
 
 		if (Messages_pressed) {
             Messages_selected = true;
@@ -131,35 +150,48 @@ int main(int, char**){
             Groups_selected = true;
 		}
         if (Messages_selected) {
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.59f, 0.98f, 1.0f));
-            Messages_pressed = ImGui::Button("Messages", ImVec2(106.5, 35));
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.629f, 0.98f, 1.0f));
+            Messages_pressed = ImGui::Button("Messages", ImVec2(109, 30));
             ImGui::PopStyleColor();
             ImGui::SameLine();
-            Groups_pressed = ImGui::Button("Groups", ImVec2(106.5, 35));
+            Groups_pressed = ImGui::Button("Groups", ImVec2(109, 30));
         }
         else {
-            Messages_pressed = ImGui::Button("Messages", ImVec2(106.5, 35));
+            Messages_pressed = ImGui::Button("Messages", ImVec2(109, 30));
             ImGui::SameLine();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.59f, 0.98f, 1.0f));
-            Groups_pressed = ImGui::Button("Groups", ImVec2(106.5, 35));
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.629f, 0.98f, 1.0f));
+            Groups_pressed = ImGui::Button("Groups", ImVec2(109, 30));
             ImGui::PopStyleColor();
         }
         ImGui::SameLine();
-        ImGui::Button("+", ImVec2(35, 35));
+        ImGui::Button("+", ImVec2(30, 30));
         
         ImGui::EndGroup();
         ImGui::Separator();
         ImGui::Text("Friend are following..");
-        const char* text = "wow";
+        const char* text = "Classmates";
         ImGui::CollapsingHeader(text);
+        ImGui::End();
+
+        ImGui::SetNextWindowPos(ImVec2(0, static_cast<float>(display_h) - 47), ImGuiCond_Once);
+        ImGuiWindowFlags Setting_window_flags = 0;
+        Setting_window_flags |= ImGuiWindowFlags_NoTitleBar;
+        Setting_window_flags |= ImGuiWindowFlags_NoMove;
+        Setting_window_flags |= ImGuiWindowFlags_NoResize;
+        Setting_window_flags |= ImGuiWindowFlags_NoCollapse; 
+        ImGui::Begin("Setting", nullptr, Setting_window_flags);
+        ImGui::SetWindowSize(ImVec2(280, 47), ImGuiCond_Always);
+        ImGui::Button("info", ImVec2(128, 30));
+        ImGui::SameLine();
+        ImGui::Button("Setting", ImVec2(128, 30));
         ImGui::End();
 
         // Chat area
         if (chat_p_open) {
             ImGui::SetNextWindowPos(ImVec2(280, 0), ImGuiCond_Always);
             ImGuiWindowFlags Chat_window_flags = 0;
-            //Chat_window_flags |= ImGuiWindowFlags_NoMove;
-            //Chat_window_flags |= ImGuiWindowFlags_NoResize;
+            Chat_window_flags |= ImGuiWindowFlags_NoMove;
+            Chat_window_flags |= ImGuiWindowFlags_NoResize;
             Chat_window_flags |= ImGuiWindowFlags_NoCollapse;
             ImGui::Begin("chat area", &chat_p_open, Chat_window_flags);
             ImGui::SetWindowSize(ImVec2(static_cast<float>(display_w) - 280, static_cast<float>(display_h) - 200), ImGuiCond_Always);
@@ -168,8 +200,8 @@ int main(int, char**){
             ImGui::SetNextWindowPos(ImVec2(280, static_cast<float>(display_h) - 200), ImGuiCond_Always);
             ImGuiWindowFlags Input_window_flags = 0;
             Input_window_flags |= ImGuiWindowFlags_NoTitleBar;
-            //Input_window_flags |= ImGuiWindowFlags_NoMove;
-            //Input_window_flags |= ImGuiWindowFlags_NoResize;
+            Input_window_flags |= ImGuiWindowFlags_NoMove;
+            Input_window_flags |= ImGuiWindowFlags_NoResize;
             Input_window_flags |= ImGuiWindowFlags_NoCollapse;
             ImGui::Begin("input area", &chat_p_open, Input_window_flags);
             ImGui::SetWindowSize(ImVec2(static_cast<float>(display_w) - 280, 200), ImGuiCond_Always);
