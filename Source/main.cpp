@@ -14,7 +14,8 @@ int main(int, char**){
     const char* glsl_version = GL_init();
 
     // Create window with graphics context
-    GLFWwindow* window = glfwCreateWindow(940, 640, "soChat", NULL, NULL);
+    int display_w = 940, display_h = 640;
+    GLFWwindow* window = glfwCreateWindow(display_w, display_h, "soChat", NULL, NULL);
     if (window == NULL)
         return 1;
 
@@ -23,10 +24,10 @@ int main(int, char**){
     glfwSwapInterval(1); // Enable vsync
 
     // Set the window icon
-    GLFWimage icon;
+    GLFWimage logo;
     int channels = 3;
-    icon.pixels = stbi_load("./images/icons/logo.png", &icon.width, &icon.height, &channels, STBI_rgb_alpha);
-    glfwSetWindowIcon(window, 1, &icon);
+    logo.pixels = stbi_load("./images/icons/logo.png", &logo.width, &logo.height, &channels, STBI_rgb_alpha);
+    glfwSetWindowIcon(window, 1, &logo);
     //ImTextureID
 
     // Setup Dear ImGui context
@@ -49,14 +50,12 @@ int main(int, char**){
 
     // status
     bool show_demo_window = true;
-    bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.664f, 0.797f, 0.953f, 1.00f);
+    ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
 
-    int display_w = 940, display_h = 640;
 
     // initialize soTalk
 	bool chat_selected = true, chat_pressed = false, contact_selected = false, contact_pressed = false;
-    bool Messages_selected = true, Groups_selected = false, Messages_pressed = false, Groups_pressed = false;
+    bool Friends_selected = true, Groups_selected = false, Friends_pressed = false, Groups_pressed = false;
 	// initialize Chat area
     bool chat_p_open = true;
 
@@ -67,6 +66,8 @@ int main(int, char**){
     GLuint avatar_texture = 0;
     bool ret = LoadTextureFromFile("./images/avatar/12_Penguin.png", &avatar_texture, &texture_width, &texture_height);
     IM_ASSERT(ret);
+    GLuint background = 0;
+    LoadTextureFromFile("./images/background/Online_discussion.png", &background, &texture_width, &texture_height);
     GLuint chat_0_texture = 0;
     LoadTextureFromFile("./images/icons/chat_0.png", &chat_0_texture, &texture_width, &texture_height);
     GLuint chat_1_texture = 0;
@@ -92,6 +93,17 @@ int main(int, char**){
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        // start init widgets
+
+        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
+        {
+            static float f = 0.0f;
+            ImGui::Begin("Hello, world!");
+            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+            ImGui::End();
+        }
+
         ImGuiWindowFlags tips_window_flags = 0;
         tips_window_flags |= ImGuiWindowFlags_NoTitleBar;
         tips_window_flags |= ImGuiWindowFlags_NoScrollbar;
@@ -100,48 +112,20 @@ int main(int, char**){
         tips_window_flags |= ImGuiWindowFlags_NoCollapse;
         tips_window_flags |= ImGuiWindowFlags_NoBackground;
         tips_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
-        ImGui::SetNextWindowPos(ImVec2((float)display_w / 2 + 20, (float)display_h / 2 - 60), ImGuiCond_Always);
-        ImGui::Begin("tips", nullptr, tips_window_flags);
+        ImGui::SetNextWindowPos(ImVec2(320, 0), ImGuiCond_Once);
+        ImGui::Begin("background", nullptr, tips_window_flags);
+        ImGui::Separator();
+        ImGui::SetWindowSize(ImVec2((float)display_w - 320, (float)display_h), ImGuiCond_Always);
+        ImVec2 background_size = ImGui::GetWindowSize();
+        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 200, background_size.y / 2 - 200));
+        ImGui::Image((void*)(intptr_t)background, ImVec2(400, 323));
+        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 110, background_size.y / 2 + 100));
         ImGui::Text("so...Chat with your friends!~");
         ImGui::End();
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-        {
-            static float f = 0.0f;
-            static int counter = 0;
+        ImGui::ShowDemoWindow(&show_demo_window);
+   
 
-
-            ImGui::Begin("Hello, world!");                       // Create a window called "Hello, world!" and append into it.
-
-
-            ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-            ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-            ImGui::End();
-        }
-        // 3. Show another simple window.
-        if (show_another_window)
-        {
-            ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-            ImGui::Text("Hello from another window!");
-            if (ImGui::Button("Close Me"))
-                show_another_window = false;
-            ImGui::End();
-        }
-		
         // Menu
         ImGui::SetNextWindowPos(ImVec2(0, 0), ImGuiCond_Once);
         ImGuiWindowFlags M_window_flags = 0;
@@ -153,14 +137,18 @@ int main(int, char**){
         ImGui::SetWindowSize(ImVec2(61, (float)display_h), ImGuiCond_Always);
         ImGui::BeginGroup();
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.941f, 0.941f, 0.941f, 0.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.941f, 0.941f, 0.941f, 0.0f));
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.729f, 0.835f, 0.953, 0.8f));
-        ImGui::ImageButton((void*)(intptr_t)avatar_texture, ImVec2(37, 37));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.729f, 0.835f, 0.953f, 0.8f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.62f, 0.78f, 0.961f, 0.8f));
+		// personal infomation
+        if (ImGui::ImageButton((void*)(intptr_t)avatar_texture, ImVec2(37, 37))) {
+            
+        }
         ImGui::Separator();
         ImGui::SetCursorPos(ImVec2(8, (float)display_h - 60));
-        ImGui::ImageButton((void*)(intptr_t)setting_texture, ImVec2(37, 37));
-        ImGui::PopStyleColor();
-        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.941f, 0.941f, 0.941f, 0.0f));
+		// settings
+        if (ImGui::ImageButton((void*)(intptr_t)setting_texture, ImVec2(37, 37))) {
+			
+        }
         if (chat_pressed) {
             chat_selected = true;
             contact_selected = false;
@@ -181,7 +169,6 @@ int main(int, char**){
             ImGui::SetCursorPos(ImVec2(8, 140));
             contact_pressed = ImGui::ImageButton((void*)(intptr_t)contact_1_texture, ImVec2(37, 37));
         }
-        
         ImGui::PopStyleColor();
         ImGui::PopStyleColor();
         ImGui::PopStyleColor();
@@ -206,24 +193,23 @@ int main(int, char**){
             ImGui::Button("Search", ImVec2(68, 27));
         }
         else {
-
-            if (Messages_pressed) {
-                Messages_selected = true;
+            if (Friends_pressed) {
+                Friends_selected = true;
                 Groups_selected = false;
             }
             else if (Groups_pressed) {
-                Messages_selected = false;
+                Friends_selected = false;
                 Groups_selected = true;
             }
-            if (Messages_selected) {
+            if (Friends_selected) {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.629f, 0.98f, 1.0f));
-                Messages_pressed = ImGui::Button("Friends", ImVec2(98, 27));
+                Friends_pressed = ImGui::Button("Friends", ImVec2(98, 27));
                 ImGui::PopStyleColor();
                 ImGui::SameLine();
                 Groups_pressed = ImGui::Button("Groups", ImVec2(98, 27));
             }
             else {
-                Messages_pressed = ImGui::Button("Friends", ImVec2(98, 27));
+                Friends_pressed = ImGui::Button("Friends", ImVec2(98, 27));
                 ImGui::SameLine();
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.260f, 0.629f, 0.98f, 1.0f));
                 Groups_pressed = ImGui::Button("Groups", ImVec2(98, 27));
@@ -281,6 +267,6 @@ int main(int, char**){
     ImGui::DestroyContext();
     glfwDestroyWindow(window);
     glfwTerminate();
-
+	
     return 0;
 }

@@ -1,3 +1,2 @@
 ﻿  main.cpp
-D:\Projects\Visual Studio\soChat\Source\main.cpp(157,88): warning C4305: “参数”: 从“double”到“float”截断
   soChat.vcxproj -> D:\Projects\Visual Studio\soChat\Debug\soChat.exe
