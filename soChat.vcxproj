@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\include;D:\Projects\glew\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\include;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\include;D:\Projects\glew\include;$(IncludePath)</IncludePath>
     <LibraryPath>D:\Projects\GLFW\glfw-3.3.7.bin.WIN32\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,32 +143,31 @@ opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\GUI\GUI_setup.cpp" />
-    <ClCompile Include="Source\GUI\imgui.cpp" />
-    <ClCompile Include="Source\GUI\imgui_demo.cpp" />
-    <ClCompile Include="Source\GUI\imgui_draw.cpp" />
-    <ClCompile Include="Source\GUI\imgui_impl_glfw.cpp" />
-    <ClCompile Include="Source\GUI\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="Source\GUI\imgui_impl_win32.cpp" />
-    <ClCompile Include="Source\GUI\imgui_tables.cpp" />
-    <ClCompile Include="Source\GUI\imgui_widgets.cpp" />
-    <ClCompile Include="Source\GUI\stb_image.cpp" />
+    <ClCompile Include="Source\GUI_setup.cpp" />
+    <ClCompile Include="Source\imgui.cpp" />
+    <ClCompile Include="Source\imgui_demo.cpp" />
+    <ClCompile Include="Source\imgui_draw.cpp" />
+    <ClCompile Include="Source\imgui_impl_glfw.cpp" />
+    <ClCompile Include="Source\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Source\imgui_impl_win32.cpp" />
+    <ClCompile Include="Source\imgui_tables.cpp" />
+    <ClCompile Include="Source\imgui_widgets.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\GUI\GUI_setup.h" />
-    <ClInclude Include="Source\GUI\imconfig.h" />
-    <ClInclude Include="Source\GUI\imgui.h" />
-    <ClInclude Include="Source\GUI\imgui_impl_glfw.h" />
-    <ClInclude Include="Source\GUI\imgui_impl_opengl3.h" />
-    <ClInclude Include="Source\GUI\imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="Source\GUI\imgui_impl_win32.h" />
-    <ClInclude Include="Source\GUI\imgui_internal.h" />
-    <ClInclude Include="Source\GUI\imstb_rectpack.h" />
-    <ClInclude Include="Source\GUI\imstb_textedit.h" />
-    <ClInclude Include="Source\GUI\imstb_truetype.h" />
-    <ClInclude Include="Source\GUI\resource.h" />
-    <ClInclude Include="Source\GUI\stb_image.h" />
+    <ClInclude Include="Source\GUI_setup.h" />
+    <ClInclude Include="Source\imconfig.h" />
+    <ClInclude Include="Source\imgui.h" />
+    <ClInclude Include="Source\imgui_impl_glfw.h" />
+    <ClInclude Include="Source\imgui_impl_opengl3.h" />
+    <ClInclude Include="Source\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Source\imgui_impl_win32.h" />
+    <ClInclude Include="Source\imgui_internal.h" />
+    <ClInclude Include="Source\imstb_rectpack.h" />
+    <ClInclude Include="Source\imstb_textedit.h" />
+    <ClInclude Include="Source\imstb_truetype.h" />
+    <ClInclude Include="Source\resource.h" />
+    <ClInclude Include="Source\stb_image.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
