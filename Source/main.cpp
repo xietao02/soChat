@@ -50,7 +50,7 @@ int main(int, char**){
 
     // status
     bool show_demo_window = true;
-    ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
+    ImVec4 clear_color = ImVec4(0.9647f, 0.9647f, 0.9647f, 1.00f);
 
 
     // initialize soTalk
@@ -67,7 +67,7 @@ int main(int, char**){
     bool ret = LoadTextureFromFile("./images/avatar/12_Penguin.png", &avatar_texture, &texture_width, &texture_height);
     IM_ASSERT(ret);
     GLuint background = 0;
-    LoadTextureFromFile("./images/background/Online_discussion.png", &background, &texture_width, &texture_height);
+    LoadTextureFromFile("./images/background/background.jpg", &background, &texture_width, &texture_height);
     GLuint chat_0_texture = 0;
     LoadTextureFromFile("./images/icons/chat_0.png", &chat_0_texture, &texture_width, &texture_height);
     GLuint chat_1_texture = 0;
@@ -94,9 +94,7 @@ int main(int, char**){
         ImGui::NewFrame();
 
         // start init widgets
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-        {
+        if (0) {
             static float f = 0.0f;
             ImGui::Begin("Hello, world!");
             ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
@@ -104,6 +102,7 @@ int main(int, char**){
             ImGui::End();
         }
 
+        // Background
         ImGuiWindowFlags tips_window_flags = 0;
         tips_window_flags |= ImGuiWindowFlags_NoTitleBar;
         tips_window_flags |= ImGuiWindowFlags_NoScrollbar;
@@ -114,12 +113,11 @@ int main(int, char**){
         tips_window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus;
         ImGui::SetNextWindowPos(ImVec2(320, 0), ImGuiCond_Once);
         ImGui::Begin("background", nullptr, tips_window_flags);
-        ImGui::Separator();
         ImGui::SetWindowSize(ImVec2((float)display_w - 320, (float)display_h), ImGuiCond_Always);
         ImVec2 background_size = ImGui::GetWindowSize();
-        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 200, background_size.y / 2 - 200));
-        ImGui::Image((void*)(intptr_t)background, ImVec2(400, 323));
-        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 110, background_size.y / 2 + 100));
+        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 152, background_size.y / 2 - 230));
+        ImGui::Image((void*)(intptr_t)background, ImVec2(305, 350));
+        ImGui::SetCursorPos(ImVec2(background_size.x / 2 - 110, background_size.y /2 + 130));
         ImGui::Text("so...Chat with your friends!~");
         ImGui::End();
 
